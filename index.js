@@ -6,7 +6,7 @@ dotenv.config();
 const port = process.env.PORT || 3000;
 
 app.get('/' , (req,res)=>{
-    res.send('Artifex Server is running on port 3000');
+    res.send(`Artifex Server is running on port ${port}`);
 })
 
 app.listen (port, ()=>{
