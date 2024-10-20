@@ -26,7 +26,7 @@ app.get('/api/pin-codes', async (req, res) => {
     const response = await axios.get(delhivery_baseURL, {
       params: req.query,
       headers: {
-        'Authorization': `Bearer ${process.env.delhivery_api}` // Consider moving this to an environment variable for security
+        'Authorization': `Bearer ${delhivery_api}` // Consider moving this to an environment variable for security
       }
     });
     res.json(response.data);
