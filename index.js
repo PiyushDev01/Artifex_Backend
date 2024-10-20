@@ -16,6 +16,9 @@ app.use(express.json());
 app.get('/' , (req,res)=>{
     res.send(`Artifex Server is running on port ${port}`);
 })
+app.get('/home' , (req,res)=>{
+    res.send(`Welcome to Artifex Server`);
+})
 
 app.get('/api/pin-codes', async (req, res) => {
   try {
