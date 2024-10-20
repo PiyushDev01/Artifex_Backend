@@ -1,0 +1,3 @@
+//To check pincode
+
+https://artifex-backend.vercel.app/api/pin-codes
