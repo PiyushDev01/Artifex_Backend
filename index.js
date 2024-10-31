@@ -49,7 +49,7 @@ const transporter = nodemailer.createTransport({
    }
  });
 
- app.post('/send-email', (req, res) => {
+ app.post('/api/send-email', (req, res) => {
   const { to, subject, htmlContent } = req.body;
   
   const mailOptions = {
@@ -62,7 +62,7 @@ const transporter = nodemailer.createTransport({
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       return res.status(500).send(error.toString());
-    }
+    } 
     res.status(200).send('Email sent: ' + info.response);
   });
 
