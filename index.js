@@ -44,8 +44,8 @@ const transporter = nodemailer.createTransport({
    port: 465, // use 587 for TLS
    secure: true, // true for SSL (port 465), false for TLS (port 587)
    auth: {
-     user: process.env.EMAIL, // replace with your email
-     pass: process.env.PASSWORD // replace with app password if using 2FA
+     user: "nodemailer420@gmail.com",
+     pass: "riie mlfy xpld osoy" // replace with app password if using 2FA
    }
  });
 
@@ -53,7 +53,7 @@ const transporter = nodemailer.createTransport({
   const { to, subject, htmlContent } = req.body;
   
   const mailOptions = {
-    from: process.env.EMAIL,
+    from: 'nodemailer420@gmail.com',
     to,
     subject,
     html: htmlContent
