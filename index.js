@@ -41,13 +41,13 @@ app.get('/api/pin-codes', async (req, res) => {
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
-   port: 465, // use 587 for TLS
-   secure: true, // true for SSL (port 465), false for TLS (port 587)
-   auth: {
-     user: "artifexpiyush@gmail.com",
-     pass: "mrzg ilrt zcvh wcaj" // replace with app password if using 2FA
-   }
- });
+  port: 465, // use 587 for TLS
+  secure: true, // true for SSL (port 465), false for TLS (port 587)
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD // replace with app password if using 2FA
+  }
+});
 
  app.post('/api/send-email', (req, res) => {
   const { to, subject, htmlContent } = req.body;
