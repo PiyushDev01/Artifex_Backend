@@ -44,8 +44,8 @@ const transporter = nodemailer.createTransport({
    port: 465, // use 587 for TLS
    secure: true, // true for SSL (port 465), false for TLS (port 587)
    auth: {
-     user: "nodemailer420@gmail.com",
-     pass: "riie mlfy xpld osoy" // replace with app password if using 2FA
+     user: "artifexpiyush@gmail.com",
+     pass: "mrzg ilrt zcvh wcaj" // replace with app password if using 2FA
    }
  });
 
