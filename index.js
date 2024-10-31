@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const axios = require('axios');
+const nodemailer = require('nodemailer');
 const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -34,6 +35,37 @@ app.get('/api/pin-codes', async (req, res) => {
     console.error('Error fetching data from Delhivery API:', error.message);
     res.status(500).json({ message: 'Error fetching data' }); // Send a more informative error response
   }
+});
+
+
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+   port: 465, // use 587 for TLS
+   secure: true, // true for SSL (port 465), false for TLS (port 587)
+   auth: {
+     user: "nodemailer420@gmail.com",
+     pass: "riie mlfy xpld osoy" // replace with app password if using 2FA
+   }
+ });
+
+ app.post('/send-email', (req, res) => {
+  const { to, subject, htmlContent } = req.body;
+  
+  const mailOptions = {
+    from: 'nodemailer420@gmail.com',
+    to,
+    subject,
+    html: htmlContent
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return res.status(500).send(error.toString());
+    }
+    res.status(200).send('Email sent: ' + info.response);
+  });
+
 });
 
 
