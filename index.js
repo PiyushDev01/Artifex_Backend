@@ -14,9 +14,9 @@ const port = process.env.PORT || 3000;
 const delhivery_api = process.env.DELHIVERY_API;
 const delhivery_baseURL = process.env.DELHIVERY_BASEURL;
 
-app.use(cors());
-// Middleware to parse JSON requests if needed in the future
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 app.get('/' , (req,res)=>{
     res.send(`Artifex Server is running on port ${port}`);
