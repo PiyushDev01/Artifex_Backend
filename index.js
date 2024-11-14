@@ -1,4 +1,5 @@
 const express = require('express');
+const app = express();
 const axios = require('axios');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
@@ -8,7 +9,6 @@ const crypto = require('crypto');
 
 
 dotenv.config();
-const app = express();
 
 const port = process.env.PORT || 3000;
 const delhivery_api = process.env.DELHIVERY_API;
