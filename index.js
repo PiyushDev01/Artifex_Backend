@@ -82,12 +82,12 @@ app.post("/order", async(req, res)=>{
   const options = req.body;
   const order = await razorpayInstance.orders.create(options);
   if(!order){
-      return res.status(500).json({error: "Some error occured"});
+      return res.status(500).json({error: "Some error occured 1"});
   }
   res.json(order);
   }catch(err){
       console.log(err);
-      res.status(500).json({error: "Some error occured"});
+      res.status(500).json({error: "Some error occured 2"});
   }
  
 })
