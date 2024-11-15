@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 app.get('/' , (req,res)=>{
-    res.send(`Artifex Server is running on port ${port}`);
+    res.send(`Artifex backend is running on port ${port}`);
 })
 
 
