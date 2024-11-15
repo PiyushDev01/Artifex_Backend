@@ -100,9 +100,10 @@ app.post('/api/payment/capture/validate', async (req, res) => {
             return res.status(400).json({error: "Invalid signature"});
         }
         res.json({
-            msg: "success",
-            order_id: razorpay_order_id,
-            paymentId: razorpay_payment_id 
+          msg: "success",
+          order_id: order.id,          // Razorpay order ID
+          paymentId: req.body.paymentId, // Razorpay payment ID, ensure this exists
+          paymentMethod: req.body.paymentMethod || "Not specified", // Include payment method from request
         });
 }
 );
