@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 app.get('/' , (req,res)=>{
-    res.send(`Artifex backend is running on port ${port}`);
+    res.send(`Artifex server is running on port ${port}`);
 })
 
 
@@ -40,7 +40,7 @@ app.get('/api/pin-codes', async (req, res) => {
 });
 
 
-  //this is for mailing functionality
+  //this is for mailing functionality 
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
