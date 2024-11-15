@@ -1,5 +1,4 @@
 const express = require('express');
-const app = express();
 const axios = require('axios');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
@@ -10,6 +9,7 @@ const crypto = require('crypto');
 
 dotenv.config();
 
+const app = express();
 const port = process.env.PORT || 3000;
 const delhivery_api = process.env.DELHIVERY_API;
 const delhivery_baseURL = process.env.DELHIVERY_BASEURL;
@@ -71,42 +71,42 @@ const transporter = nodemailer.createTransport({
 
 });
 
-app.post("/order", async(req, res)=>{
+//this is for payment gateway
 
-  try{
-       const razorpayInstance = new razorpay({
-      key_id: process.env.RAZORPAY_KEY_ID,
-      key_secret: process.env.RAZORPAY_KEY_SECRET
-  });
-
-  const options = req.body;
-  const order = await razorpayInstance.orders.create(options);
-  if(!order){
-      return res.status(500).json({error: "Some error occured 1"});
-  }
-  res.json(order);
-  }catch(err){
-      console.log(err);
-      res.status(500).json({error: "Some error occured 2"});
-  }
- 
-})
-
-app.post("/capture/validate", async(req, res)=>{
-  const {razorpay_payment_id,razorpay_order_id,razorpay_signature} = req.body;
-  const sha = crypto.createHmac('sha256', process.env.RAZORPAY_KEY_SECRET);
-  //order_id + "|" + razorpay_payment_id, secret
-  sha.update(`${razorpay_order_id}|${razorpay_payment_id}`);
-     const digest = sha.digest('hex');
-     if(digest !== razorpay_signature){
-         return res.status(400).json({error: "Invalid signature"});
-     }
-     res.json({
-         msg: "success",
-         order_id: razorpay_order_id,
-         paymentId: razorpay_payment_id 
-     });
+const instance = new razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET
 });
+
+app.post('/api/payment/orders', async (req, res) => {
+  const options = req.body;
+
+  try {
+    const response = await instance.orders.create(options);
+    res.json(response);
+  } catch (error) {
+    console.error('Error creating order:', error.message);
+    res.status(500).json({ message: 'Error creating order' });
+  }
+});
+
+app.post('/api/payment/capture/validate', async (req, res) => {
+  const {razorpay_payment_id,razorpay_order_id,razorpay_signature} = req.body;
+     const sha = crypto.createHmac('sha256', process.env.RAZORPAY_KEY_SECRET);
+     //order_id + "|" + razorpay_payment_id, secret
+     sha.update(`${razorpay_order_id}|${razorpay_payment_id}`);
+        const digest = sha.digest('hex');
+        if(digest !== razorpay_signature){
+            return res.status(400).json({error: "Invalid signature"});
+        }
+        res.json({
+            msg: "success",
+            order_id: razorpay_order_id,
+            paymentId: razorpay_payment_id 
+        });
+}
+);
+
 
 
 
