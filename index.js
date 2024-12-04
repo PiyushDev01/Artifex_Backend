@@ -72,6 +72,7 @@ const transporter = nodemailer.createTransport({
 });
 
 //this is for payment gateway
+//razorpay api changed to live mode on vercel
 
 const instance = new razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
@@ -102,7 +103,8 @@ app.post('/api/payment/capture/validate', async (req, res) => {
         res.json({
             msg: "success",
             order_id: razorpay_order_id,
-            paymentId: razorpay_payment_id  
+            paymentId: razorpay_payment_id,
+              
         });
 }
 );
