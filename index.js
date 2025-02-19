@@ -114,7 +114,7 @@ app.post('/api/payment/capture/validate', async (req, res) => {
 
 //this is for LIKES counter in porfolio
 //read the counter value
-app.get("/get-counter", (req, res) => {
+app.get("/api/get-counter", (req, res) => {
   fs.readFile(FILE_PATH, "utf8", (err, data) => {
     if (err) {
       return res.status(500).json({ error: "Error reading file" });
@@ -124,7 +124,7 @@ app.get("/get-counter", (req, res) => {
 });
 
 // Update counter value
-app.post("/update-counter", (req, res) => {
+app.post("/api/update-counter", (req, res) => {
   fs.readFile(FILE_PATH, "utf8", (err, data) => {
     let count = parseInt(data, 10) || 0;
     count += 1;
