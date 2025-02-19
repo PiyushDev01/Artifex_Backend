@@ -6,12 +6,7 @@ const dotenv = require('dotenv');
 const razorpay = require('razorpay');
 const crypto = require('crypto'); 
 const fs = require("fs"); 
-const FILE_PATH = "./counter.txt";
-
-// Ensure the counter file exists
-if (!fs.existsSync(FILE_PATH)) {
-  fs.writeFileSync(FILE_PATH, '0', 'utf8');
-}
+const FILE_PATH = "./counter.txt"; 
 
 
 dotenv.config();
@@ -26,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 app.get('/' , (req,res)=>{
-    res.send(`Artifex backend server is running on port ${port}`);
+    res.send(`Artifex server is running on port ${port}`);
 })
 
 
