@@ -4,7 +4,9 @@ const nodemailer = require('nodemailer');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const razorpay = require('razorpay');
-const crypto = require('crypto');   
+const crypto = require('crypto'); 
+const fs = require("fs"); 
+const FILE_PATH = "./counter.txt"; 
 
 
 dotenv.config();
@@ -109,6 +111,32 @@ app.post('/api/payment/capture/validate', async (req, res) => {
 }
 );
 
+
+//this is for LIKES counter in porfolio
+//read the counter value
+app.get("/get-counter", (req, res) => {
+  fs.readFile(FILE_PATH, "utf8", (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: "Error reading file" });
+    }
+    res.json({ count: parseInt(data, 10) || 0 });
+  });
+});
+
+// Update counter value
+app.post("/update-counter", (req, res) => {
+  fs.readFile(FILE_PATH, "utf8", (err, data) => {
+    let count = parseInt(data, 10) || 0;
+    count += 1;
+
+    fs.writeFile(FILE_PATH, count.toString(), (err) => {
+      if (err) {
+        return res.status(500).json({ error: "Error writing file" });
+      }
+      res.json({ count });
+    });
+  });
+});
 
 
 
